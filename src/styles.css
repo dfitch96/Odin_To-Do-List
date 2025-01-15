@@ -1,3 +1,83 @@
-body{
-    background-color: blue;
+
+:root{
+
+}
+
+
+body,
+html {
+    margin: 0;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 0.15fr 0.85fr;
+}
+
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    grid-column: 1 / 2;
+    height: 100vh;
+    background-color: rgb(250, 229, 223);
+}
+
+
+.sidebar > h1{
+    
+    margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+.sidebar > h4{
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 20px;
+    
+}
+
+.sidebar ul{
+    list-style-type: none;
+    padding-inline-start: 0;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.sidebar li{
+    margin-bottom: 10px;
+}
+
+.sidebar li:last-child{
+    margin-bottom: 0;
+}
+
+.sidebar button{
+    padding: 0;
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.sidebar button:hover {
+    color:  rgb(69, 196, 90);
+}
+
+.sidebar button:focus {
+    outline: none;
+    color: rgb(24, 129, 41);
+    
+}
+
+details{
+    margin-top: 20px;
+}
+
+summary{
+    margin-left: 5px;
 }
