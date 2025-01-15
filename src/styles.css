@@ -1,6 +1,10 @@
 
 :root{
 
+    --primary-color: rgb(250, 229, 223);
+    --secondary-color: rgb(69, 196, 90);
+    --sidebar-margin-left: 20px;
+    --primary-font-color: rgb(121, 117, 117);
 }
 
 
@@ -9,6 +13,7 @@ html {
     margin: 0;
     min-height: 100vh;
     box-sizing: border-box;
+    color: var(--primary-font-color);
 }
 
 
@@ -22,13 +27,13 @@ html {
     flex-direction: column;
     grid-column: 1 / 2;
     height: 100vh;
-    background-color: rgb(250, 229, 223);
+    background-color: var(--primary-color);
 }
 
 
 .sidebar > h1{
     
-    margin-left: 20px;
+    margin-left: var(--sidebar-margin-left);
     margin-bottom: 10px;
     margin-top: 15px;
 }
@@ -36,14 +41,14 @@ html {
 .sidebar > h4{
     margin-top: 0;
     margin-bottom: 0;
-    margin-left: 20px;
+    margin-left: var(--sidebar-margin-left);
     
 }
 
 .sidebar ul{
     list-style-type: none;
     padding-inline-start: 0;
-    margin-left: 20px;
+    margin-left: var(--sidebar-margin-left);
     margin-bottom: 10px;
 }
 
@@ -59,13 +64,13 @@ html {
     padding: 0;
     background: none;
     border: none;
-    color: #000;
     font-size: 1rem;
     cursor: pointer;
+    color: var(--primary-font-color);
 }
 
 .sidebar button:hover {
-    color:  rgb(69, 196, 90);
+    color:  var(--secondary-color);
 }
 
 .sidebar button:focus {
@@ -74,10 +79,13 @@ html {
     
 }
 
-details{
-    margin-top: 20px;
+details#sidebar-details{
+    margin-top: var(--sidebar-margin-left);
 }
 
 summary{
+
     margin-left: 5px;
 }
+
+
