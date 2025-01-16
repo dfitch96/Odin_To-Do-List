@@ -1,10 +1,11 @@
 
 
-
 export const ViewManager = function(){
 
-    const sideBar = getElement(".sidebar");
+    const sideBar = getElement("#sidebar");
     const sideBarDetails = getElement("#sidebar-details");
+    const addProjectDialog = getElement("#add-project-dialog");
+
 
 
 
@@ -23,6 +24,17 @@ export const ViewManager = function(){
     function getElement(selector){
         const element = document.querySelector(selector);
         return element;
+    }
+
+
+
+    const showAddProjectDialog = function(){
+        addProjectDialog.showModal();
+    }
+
+    const resetAddProjectForm = function(){
+        const form = addProjectDialog.querySelector(".form-container");
+        form.reset();
     }
 
 
@@ -50,8 +62,17 @@ export const ViewManager = function(){
     }
 
 
+    
+
+
     return {
         displayProjectsOnSidebar,
+        createElementWithClass,
+        createElementWithId,
+        getElement,
+        showAddProjectDialog,
+        resetAddProjectForm,
+
 
     }
 
