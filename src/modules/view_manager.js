@@ -46,7 +46,7 @@ export const ViewManager = function(){
     }
 
 
-    const displayProjectsOnSidebar = function(projects){
+    const displayProjectsOnSidebar = function(projects, handler){
 
         removeProjectsFromSidebar();
         const projectsNav = createElementWithId("nav", "projects-nav");
@@ -55,8 +55,9 @@ export const ViewManager = function(){
         for(let i = 0; i < projects.length; i++){
 
             const projectListItem = createElementWithClass("li", "project");
-            projectListItem.dataset.indexNumber = i;
             const projectButton = createElementWithClass("button", "project-button");
+            projectButton.dataset.indexNumber = i;
+            projectButton.addEventListener("click", handler);
             projectButton.textContent = projects[i].name;
             projectListItem.appendChild(projectButton);
             projectsList.append(projectListItem);

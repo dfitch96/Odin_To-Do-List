@@ -17,6 +17,13 @@ const App = function(viewManager, projects){
     const addProjectDialog = viewManager.getElement("#add-project-dialog");
 
 
+
+    const displayProjectHandler = (event) => {
+        const index = event.target.dataset.indexNumber;
+        
+        
+        
+    }
     
 
     addProjectButton.addEventListener("click", () => {
@@ -42,7 +49,7 @@ const App = function(viewManager, projects){
     })
 
 
-    viewManager.displayProjectsOnSidebar(projects);
+    viewManager.displayProjectsOnSidebar(projects, displayProjectHandler);
 
 
 }(view, projects);
