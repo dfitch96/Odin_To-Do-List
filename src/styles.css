@@ -111,6 +111,11 @@ dialog{
 .form-container{
     display: grid;
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 15px;
+}
+
+h4{
+    margin: 0;
+    margin-bottom: 15px;
 }
 

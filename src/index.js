@@ -24,25 +24,21 @@ const App = function(viewManager, projects){
     })
 
     addProjectDialog.addEventListener("close", (event) => {
-        if(addProjectDialog.returnValue !== "cancel"){
-            const input = JSON.parse(addProjectDialog.returnValue)
-            console.log(`${input.name} ${input.isComplete}`);
+        if(addProjectDialog.returnValue === "save"){
+            const projectName = viewManager.getElement("#project-name").value;
+            projects.push(new Project(projectName))
+            viewManager.displayProjectsOnSidebar(projects);
         }
 
         viewManager.resetAddProjectForm();
+        
         
     })
 
     
     saveProjectButton.addEventListener("click", (event) => {
         event.preventDefault();
-        const projectName = viewManager.getElement("#project-name").value;
-        const isProjectComplete = viewManager.getElement("#is-complete").checked;
-        const input = {
-            name: projectName,
-            isComplete: isProjectComplete,
-        };
-        addProjectDialog.close(JSON.stringify(input));
+        addProjectDialog.close(event.target.value);
     })
 
 

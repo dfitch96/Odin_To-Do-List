@@ -37,9 +37,18 @@ export const ViewManager = function(){
         form.reset();
     }
 
+    const removeProjectsFromSidebar = function(){
+        
+        if (sideBarDetails.firstChild !== sideBarDetails.lastChild){
+            sideBarDetails.removeChild(sideBarDetails.lastChild);
+        }
+        
+    }
+
 
     const displayProjectsOnSidebar = function(projects){
 
+        removeProjectsFromSidebar();
         const projectsNav = createElementWithId("nav", "projects-nav");
         const projectsList = createElementWithId("ul", "projects-list");
 
