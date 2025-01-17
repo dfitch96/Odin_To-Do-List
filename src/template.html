@@ -25,8 +25,36 @@
         
     </dialog>
 
-
-
+    <dialog id="add-todo-dialog">
+        <h4>Add To Do</h4>
+        <form class="form-container">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" autofocus>
+            </div>
+            <div>
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" autofocus>
+            </div>
+            <div>
+                <label for="duedate">Due Date:</label>
+                <input type="date" id="duedate" name="duedate" autofocus>
+            </div>
+            <div>
+                <label for="priority">Priority:</label>
+                <select name="priority" id="priority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <div>
+                <button value="cancel" formmethod="dialog">Cancel</button>
+                <button id="save-todo-button" value="save">Save</button>
+            </div>
+        </form>
+        
+    </dialog>
 
     <div id="grid-container">
         <aside id="sidebar">

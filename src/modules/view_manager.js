@@ -5,6 +5,7 @@ export const ViewManager = function(){
     const sideBar = getElement("#sidebar");
     const sideBarDetails = getElement("#sidebar-details");
     const addProjectDialog = getElement("#add-project-dialog");
+    const addToDoDialog = getElement("#add-todo-dialog");
     const display = getElement("#display");
 
 
@@ -30,6 +31,10 @@ export const ViewManager = function(){
 
     const showAddProjectDialog = function(){
         addProjectDialog.showModal();
+    }
+
+    const showAddToDoDialog = function(){
+        addToDoDialog.showModal();
     }
 
     const resetAddProjectForm = function(){
@@ -142,11 +147,12 @@ export const ViewManager = function(){
         const projectHeader = document.createElement("h2");
         const addToDoButton = document.createElement("button");
         const displayGrid = createElementWithId('div', 'display-grid');
-
         const headerContainer = createElementWithId("header", "header-container");
+
         projectHeader.textContent = `${project.name}`;
         headerContainer.appendChild(projectHeader);
         addToDoButton.textContent = 'Add To Do';
+        addToDoButton.addEventListener("click", showAddToDoDialog);
         headerContainer.appendChild(addToDoButton);
         display.appendChild(headerContainer);
 
