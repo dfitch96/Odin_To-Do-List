@@ -4,7 +4,10 @@ import {ViewManager} from "./modules/view_manager.js";
 
 
 const projects = [];
-projects.push(new Project("Home"));
+const project = new Project("Home");
+project.addToDo("Get Groceries", "Go to Tops. I need bananas, cereal, and milk", "1/17/2025", "high");
+project.addToDo("Get Groceries", "Go to Tops. I need bananas, cereal, and milk", "1/17/2025", "high");
+projects.push(project);
 const view = ViewManager();
 
 
@@ -18,9 +21,10 @@ const App = function(viewManager, projects){
 
 
 
-    const displayProjectHandler = (event) => {
+    const handleProjectOnClick = (event) => {
         const index = event.target.dataset.indexNumber;
-        
+        viewManager.resetDisplay();
+        viewManager.displayToDos(projects[index]);
         
         
     }
@@ -34,7 +38,7 @@ const App = function(viewManager, projects){
         if(addProjectDialog.returnValue === "save"){
             const projectName = viewManager.getElement("#project-name").value;
             projects.push(new Project(projectName))
-            viewManager.displayProjectsOnSidebar(projects);
+            viewManager.displayProjectsOnSidebar(projects, handleProjectOnClick);
         }
 
         viewManager.resetAddProjectForm();
@@ -49,7 +53,7 @@ const App = function(viewManager, projects){
     })
 
 
-    viewManager.displayProjectsOnSidebar(projects, displayProjectHandler);
+    viewManager.displayProjectsOnSidebar(projects, handleProjectOnClick);
 
 
 }(view, projects);

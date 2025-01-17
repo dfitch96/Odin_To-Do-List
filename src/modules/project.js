@@ -7,9 +7,9 @@ export class Project{
         this.name = name;
     }
 
-    addToDo(title, description, dueDate, priority, notes){
+    addToDo(title, description, dueDate, priority){
         const id = this.toDoList.length > 0 ? this.toDoList[this.toDoList.length - 1].id + 1 : 1;
-        this.toDoList.push(new ToDo(id, title, description, dueDate, priority, notes));
+        this.toDoList.push(new ToDo(id, title, description, dueDate, priority));
     }
 
     deleteToDo(id){
