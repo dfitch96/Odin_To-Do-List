@@ -147,7 +147,7 @@ export const ViewManager = function(){
         display.textContent = "";
     }
 
-    const displayToDos = function(project, index){
+    const displayToDos = function(project, index, handler){
 
         const projectHeader = document.createElement("h2");
         const addToDoButton = document.createElement("button");
@@ -177,17 +177,18 @@ export const ViewManager = function(){
         // for every To Do within the project, append a display-item to the display-grid
         for(let i = 0; i < project.toDoList.length; i++){
             const displayItem = createElementWithClass("div", "display-item");
+            displayItem.addEventListener("click", handler);
             displayItem.dataset.Id = project.toDoList[i].id;
+            
             const elmnts = createToDoElements(project.toDoList[i]);
             const buttonGroup = createButtonGroup(project.toDoList[i]);
 
             appendElements(elmnts, displayItem);
             displayItem.appendChild(buttonGroup);
-
             displayGrid.appendChild(displayItem);
             
-
         }
+        
 
         displayGrid.dataset.indexNumber = index;
         display.appendChild(displayGrid);

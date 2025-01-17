@@ -6,7 +6,6 @@ import {ViewManager} from "./modules/view_manager.js";
 const projects = [];
 const project = new Project("Home");
 project.addToDo("Get Groceries", "Go to Tops. I need bananas, cereal, and milk", "1/17/2025", "high");
-project.addToDo("Get Groceries", "Go to Tops. I need bananas, cereal, and milk", "1/17/2025", "high");
 projects.push(project);
 const view = ViewManager();
 
@@ -30,7 +29,12 @@ const App = function(viewManager, projects){
     const handleProjectOnClick = (event) => {
         const index = event.target.dataset.indexNumber;
         viewManager.resetDisplay();
-        viewManager.displayToDos(projects[index], index);
+        viewManager.displayToDos(projects[index], index, handleToDoOnClick);
+    };
+
+    const handleToDoOnClick = (event) => {
+        console.log("Handling To Do");
+
     };
     
 
@@ -78,10 +82,11 @@ const App = function(viewManager, projects){
             );
 
 
+            console.log(typeof handleToDoOnClick);
             // reset view and display updated list
             viewManager.resetAddToDoForm();
             viewManager.resetDisplay();
-            viewManager.displayToDos(projects[projectIndex], projectIndex);
+            viewManager.displayToDos(projects[projectIndex], projectIndex, handleToDoOnClick);
         }
 
     });
