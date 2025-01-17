@@ -42,6 +42,11 @@ export const ViewManager = function(){
         form.reset();
     }
 
+    const resetAddToDoForm = function(){
+        const form = addToDoDialog.querySelector(".form-container");
+        form.reset();
+    }
+
     const removeProjectsFromSidebar = function(){
         
         if (sideBarDetails.firstChild !== sideBarDetails.lastChild){
@@ -142,7 +147,7 @@ export const ViewManager = function(){
         display.textContent = "";
     }
 
-    const displayToDos = function(project){
+    const displayToDos = function(project, index){
 
         const projectHeader = document.createElement("h2");
         const addToDoButton = document.createElement("button");
@@ -167,6 +172,7 @@ export const ViewManager = function(){
 
         for(let i = 0; i < project.toDoList.length; i++){
             const displayItem = createElementWithClass("div", "display-item");
+            displayItem.dataset.Id = project.toDoList[i].id;
             const elmnts = createToDoElements(project.toDoList[i]);
             const buttonGroup = createButtonGroup(project.toDoList[i]);
 
@@ -178,6 +184,7 @@ export const ViewManager = function(){
 
         }
 
+        displayGrid.dataset.indexNumber = index;
         display.appendChild(displayGrid);
 
 
@@ -193,7 +200,8 @@ export const ViewManager = function(){
         resetAddProjectForm,
         displayToDos,
         resetDisplay,
-
+        resetAddToDoForm,
+        
 
     }
 

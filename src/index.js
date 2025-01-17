@@ -30,15 +30,15 @@ const App = function(viewManager, projects){
     const handleProjectOnClick = (event) => {
         const index = event.target.dataset.indexNumber;
         viewManager.resetDisplay();
-        viewManager.displayToDos(projects[index]);
-    }
+        viewManager.displayToDos(projects[index], index);
+    };
     
 
 
     // EVENTS FOR ADDING A PROJECT
     addProjectButton.addEventListener("click", () => {
             viewManager.showAddProjectDialog();
-    })
+    });
 
     addProjectDialog.addEventListener("close", (event) => {
         if(addProjectDialog.returnValue === "save"){
@@ -50,15 +50,45 @@ const App = function(viewManager, projects){
         viewManager.resetAddProjectForm();
         
         
-    })
+    });
 
     saveProjectButton.addEventListener("click", (event) => {
         event.preventDefault();
         addProjectDialog.close(event.target.value);
-    })
+    });
 
 
     // EVENTS FOR ADDING A TODO TO A PROJECT
+
+    addToDoDialog.addEventListener("close", (event) => {
+
+        // if save buttons was clicked
+        if(addToDoDialog.returnValue === "save"){
+            const form = addToDoDialog.querySelector(".form-container");
+            const projectIndex = document.querySelector("#display-grid").dataset.indexNumber;
+            const formData = new FormData(form);
+
+            // add to do to the project
+            projects[projectIndex].addToDo(
+                formData.get("title"),
+                formData.get("description"),
+                formData.get("duedate"),
+                formData.get("priority"),
+            );
+
+
+            // reset view and display updated list
+            viewManager.resetAddToDoForm();
+            viewManager.resetDisplay();
+            viewManager.displayToDos(projects[projectIndex], projectIndex);
+        }
+
+    });
+
+    saveToDoButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        addToDoDialog.close(event.target.value);
+    })
 
 
 
