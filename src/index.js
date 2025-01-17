@@ -66,6 +66,7 @@ const App = function(viewManager, projects){
         if(addToDoDialog.returnValue === "save"){
             const form = addToDoDialog.querySelector(".form-container");
             const projectIndex = document.querySelector("#display-grid").dataset.indexNumber;
+
             const formData = new FormData(form);
 
             // add to do to the project

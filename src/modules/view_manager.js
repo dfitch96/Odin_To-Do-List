@@ -154,6 +154,7 @@ export const ViewManager = function(){
         const displayGrid = createElementWithId('div', 'display-grid');
         const headerContainer = createElementWithId("header", "header-container");
 
+        // append header and add to do button to display
         projectHeader.textContent = `${project.name}`;
         headerContainer.appendChild(projectHeader);
         addToDoButton.textContent = 'Add To Do';
@@ -161,15 +162,19 @@ export const ViewManager = function(){
         headerContainer.appendChild(addToDoButton);
         display.appendChild(headerContainer);
 
+        // if current projects to do list is empty, display "project is empty text" and add projects index
+        // to the displayGrid
         if(project.toDoList.length  === 0){
             const emptyProjectDiv = document.createElement("p");
             emptyProjectDiv.textContent = "This Project is empty";
             display.appendChild(emptyProjectDiv);
+            displayGrid.dataset.indexNumber = index;
+            display.appendChild(displayGrid);
             return;
         }
         
 
-
+        // for every To Do within the project, append a display-item to the display-grid
         for(let i = 0; i < project.toDoList.length; i++){
             const displayItem = createElementWithClass("div", "display-item");
             displayItem.dataset.Id = project.toDoList[i].id;
@@ -201,7 +206,7 @@ export const ViewManager = function(){
         displayToDos,
         resetDisplay,
         resetAddToDoForm,
-        
+
 
     }
 
