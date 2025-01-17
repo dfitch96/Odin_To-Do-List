@@ -34,6 +34,7 @@ const App = function(viewManager, projects){
 
     const handleToDoOnClick = (event) => {
         console.log("Handling To Do");
+        console.log(event.target.tagName);
 
     };
     
