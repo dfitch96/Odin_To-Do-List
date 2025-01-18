@@ -25,6 +25,8 @@ const App = function(viewManager, projects){
     const saveToDoButton = viewManager.getElement("#save-todo-button");
 
 
+    
+
 
     const handleProjectOnClick = (event) => {
         const index = event.target.dataset.indexNumber;
@@ -34,10 +36,14 @@ const App = function(viewManager, projects){
 
     const handleToDoOnClick = (event) => {
         console.log("Handling To Do");
-        console.log(event.target.tagName);
+        
 
     };
     
+
+
+
+
 
 
     // EVENTS FOR ADDING A PROJECT

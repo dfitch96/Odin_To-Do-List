@@ -102,7 +102,15 @@ export const ViewManager = function(){
         };
     }
 
-    function createButtonGroup(todo){
+
+    function setButton(button, text, index, id, value){
+        button.textContent = text;
+        button.dataset.indexNumber = index;
+        button.dataset.id = id;
+        button.value = value
+    }
+
+    function createButtonGroup(todo, indexNumber, id){
         const buttonGroup = createElementWithClass("div", "button-group");
         const checkboxDiv = document.createElement("div");
         const label = document.createElement("label");
@@ -118,14 +126,16 @@ export const ViewManager = function(){
         checkboxDiv.appendChild(label);
 
         checkbox.setAttribute("type", "checkbox");
+        checkbox.dataset.indexNumber = indexNumber;
+        checkbox.dataset.id = id;
         checkboxDiv.appendChild(checkbox);
 
         buttonGroup.appendChild(checkboxDiv);
 
         // SET/APPEND EDIT AND DELETE BUTTON
         const divContainer = document.createElement("div");
-        editButton.textContent = "Edit";
-        deleteButton.textContent = "Delete";
+        setButton(editButton, "Edit", indexNumber, id, "edit");
+        setButton(deleteButton, "Delete", indexNumber, id, "delete");
         divContainer.appendChild(editButton);
         divContainer.appendChild(deleteButton);
         buttonGroup.appendChild(divContainer);
@@ -178,10 +188,10 @@ export const ViewManager = function(){
         for(let i = 0; i < project.toDoList.length; i++){
             const displayItem = createElementWithClass("div", "display-item");
             displayItem.addEventListener("click", handler);
-            displayItem.dataset.Id = project.toDoList[i].id;
+            displayItem.dataset.id = project.toDoList[i].id;
             
             const elmnts = createToDoElements(project.toDoList[i]);
-            const buttonGroup = createButtonGroup(project.toDoList[i]);
+            const buttonGroup = createButtonGroup(project.toDoList[i], index, project.toDoList[i].id);
 
             appendElements(elmnts, displayItem);
             displayItem.appendChild(buttonGroup);
@@ -197,6 +207,9 @@ export const ViewManager = function(){
     }
 
 
+
+   
+
     return {
         displayProjectsOnSidebar,
         createElementWithClass,
@@ -207,8 +220,6 @@ export const ViewManager = function(){
         displayToDos,
         resetDisplay,
         resetAddToDoForm,
-
-
     }
 
 }
