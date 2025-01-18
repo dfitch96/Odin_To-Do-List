@@ -9,7 +9,7 @@ export const ViewManager = function(){
     const display = getElement("#display");
 
 
-
+    // HELPER FUNCTIONS
     function createElementWithClass(tag, className){
         const newElement = document.createElement(tag);
         newElement.classList.add(className);
@@ -27,34 +27,21 @@ export const ViewManager = function(){
         return element;
     }
 
+  
 
+
+
+
+    // SIDEBAR FUNCTIONS
 
     const showAddProjectDialog = function(){
         addProjectDialog.showModal();
-    }
-
-    const showAddToDoDialog = function(){
-        addToDoDialog.showModal();
     }
 
     const resetAddProjectForm = function(){
         const form = addProjectDialog.querySelector(".form-container");
         form.reset();
     }
-
-    const resetAddToDoForm = function(){
-        const form = addToDoDialog.querySelector(".form-container");
-        form.reset();
-    }
-
-    const removeProjectsFromSidebar = function(){
-        
-        if (sideBarDetails.firstChild !== sideBarDetails.lastChild){
-            sideBarDetails.removeChild(sideBarDetails.lastChild);
-        }
-        
-    }
-
 
     const displayProjectsOnSidebar = function(projects, handler){
 
@@ -79,6 +66,31 @@ export const ViewManager = function(){
         sideBarDetails.append(projectsNav);
         
 
+    }
+
+    const removeProjectsFromSidebar = function(){
+        
+        if (sideBarDetails.firstChild !== sideBarDetails.lastChild){
+            sideBarDetails.removeChild(sideBarDetails.lastChild);
+        }
+        
+    }
+
+
+
+
+
+
+    // MAIN DISPLAY FUNCTIONS
+
+
+    const showAddToDoDialog = function(){
+        addToDoDialog.showModal();
+    }
+
+    const resetAddToDoForm = function(){
+        const form = addToDoDialog.querySelector(".form-container");
+        form.reset();
     }
 
     function createToDoElements(todo){
@@ -110,7 +122,7 @@ export const ViewManager = function(){
         button.value = value
     }
 
-    function createButtonGroup(todo, indexNumber, id){
+    function createButtonGroup(indexNumber, id){
         const buttonGroup = createElementWithClass("div", "button-group");
         const checkboxDiv = document.createElement("div");
         const label = document.createElement("label");
@@ -126,8 +138,10 @@ export const ViewManager = function(){
         checkboxDiv.appendChild(label);
 
         checkbox.setAttribute("type", "checkbox");
+        checkbox.classList.add("status-checkbox");
         checkbox.dataset.indexNumber = indexNumber;
         checkbox.dataset.id = id;
+        
         checkboxDiv.appendChild(checkbox);
 
         buttonGroup.appendChild(checkboxDiv);
@@ -191,7 +205,7 @@ export const ViewManager = function(){
             displayItem.dataset.id = project.toDoList[i].id;
             
             const elmnts = createToDoElements(project.toDoList[i]);
-            const buttonGroup = createButtonGroup(project.toDoList[i], index, project.toDoList[i].id);
+            const buttonGroup = createButtonGroup(index, project.toDoList[i].id);
 
             appendElements(elmnts, displayItem);
             displayItem.appendChild(buttonGroup);
