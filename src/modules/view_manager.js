@@ -78,6 +78,18 @@ export const ViewManager = function(){
 
 
 
+    const bindProjectsOnClick = function(handler){
+
+        const projectsList = sideBarDetails.querySelector("#projects-list");
+
+        if(projectsList){
+            for(const child of projectsList.children){
+                const projectButton = child.querySelector(".project-button")
+                projectButton.addEventListener("click", handler);
+            }
+        }
+
+    }   
 
 
 
@@ -221,6 +233,10 @@ export const ViewManager = function(){
     }
 
 
+    const bindDeleteButtonOnClick = function(handler){
+
+
+    }
 
    
 
@@ -234,6 +250,8 @@ export const ViewManager = function(){
         displayToDos,
         resetDisplay,
         resetAddToDoForm,
+        bindProjectsOnClick,
+        bindDeleteButtonOnClick,
     }
 
 }

@@ -42,10 +42,6 @@ const App = function(viewManager, projects){
     
 
 
-
-
-
-
     // EVENTS FOR ADDING A PROJECT
     addProjectButton.addEventListener("click", () => {
             viewManager.showAddProjectDialog();
@@ -55,7 +51,8 @@ const App = function(viewManager, projects){
         if(addProjectDialog.returnValue === "save"){
             const projectName = viewManager.getElement("#project-name").value;
             projects.push(new Project(projectName))
-            viewManager.displayProjectsOnSidebar(projects, handleProjectOnClick);
+            viewManager.displayProjectsOnSidebar(projects);
+            viewManager.bindProjectsOnClick(handleProjectOnClick);
         }
 
         viewManager.resetAddProjectForm();
@@ -105,7 +102,8 @@ const App = function(viewManager, projects){
 
 
 
-    viewManager.displayProjectsOnSidebar(projects, handleProjectOnClick);
+    viewManager.displayProjectsOnSidebar(projects);
+    viewManager.bindProjectsOnClick(handleProjectOnClick);
 
 
 }(view, projects);
