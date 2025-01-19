@@ -97,7 +97,7 @@ export const ViewManager = function(){
 
 
     // MAIN DISPLAY FUNCTIONS
-    
+
     const showAddToDoDialog = function(){
         addToDoDialog.showModal();
     }
@@ -120,6 +120,14 @@ export const ViewManager = function(){
 
     const bindDeleteButtonOnClick = function(handler){
 
+        const displayGrid = getElement("#display-grid");
+
+        if(displayGrid){
+            for(const child of displayGrid.children){
+                const button = child.querySelector(".delete-button");
+                button.addEventListener("click", handler);
+            }
+        }
 
     }
 
@@ -146,8 +154,9 @@ export const ViewManager = function(){
     }
 
 
-    function setButton(button, text, index, id, value){
+    function setButton(button, text, index, id, value, className){
         button.textContent = text;
+        button.classList.add(className);
         button.dataset.indexNumber = index;
         button.dataset.id = id;
         button.value = value
@@ -179,8 +188,8 @@ export const ViewManager = function(){
 
         // SET/APPEND EDIT AND DELETE BUTTON
         const divContainer = document.createElement("div");
-        setButton(editButton, "Edit", indexNumber, id, "edit");
-        setButton(deleteButton, "Delete", indexNumber, id, "delete");
+        setButton(editButton, "Edit", indexNumber, id, "edit", "edit-button");
+        setButton(deleteButton, "Delete", indexNumber, id, "delete", "delete-button");
         divContainer.appendChild(editButton);
         divContainer.appendChild(deleteButton);
         buttonGroup.appendChild(divContainer);

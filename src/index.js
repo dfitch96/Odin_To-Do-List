@@ -23,6 +23,9 @@ const App = function(viewManager, projects){
     const saveToDoButton = viewManager.getElement("#save-todo-button");
 
 
+
+
+
     //HANDLERS
 
     const handleProjectOnClick = (event) => {
@@ -30,11 +33,26 @@ const App = function(viewManager, projects){
         viewManager.resetDisplay();
         viewManager.displayToDos(projects[index], index);
         viewManager.bindAddToDoButtonOnClick(handleAddToDoOnClick);
+        viewManager.bindDeleteButtonOnClick(handleDeleteToDoOnClick);
     };
 
 
     const handleAddToDoOnClick = function(){
         viewManager.showAddToDoDialog();
+    }
+
+    const handleDeleteToDoOnClick = function(event){
+        console.log(`Deleting task ${event.target.dataset.id} from project ${event.target.dataset.indexNumber}`);
+        
+        projects[event.target.dataset.indexNumber].deleteToDo(Number(event.target.dataset.id));
+        viewManager.resetDisplay();
+        viewManager.displayToDos(projects[event.target.dataset.indexNumber], event.target.dataset.indexNumber);
+        viewManager.bindAddToDoButtonOnClick(handleAddToDoOnClick);
+        viewManager.bindDeleteButtonOnClick(handleDeleteToDoOnClick);
+       
+        
+        
+
     }
 
     
@@ -87,6 +105,7 @@ const App = function(viewManager, projects){
             viewManager.resetDisplay();
             viewManager.displayToDos(projects[projectIndex], projectIndex);
             viewManager.bindAddToDoButtonOnClick(handleAddToDoOnClick);
+            viewManager.bindDeleteButtonOnClick(handleDeleteToDoOnClick);
         }
 
         viewManager.resetAddToDoForm();
