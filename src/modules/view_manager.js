@@ -38,12 +38,16 @@ export const ViewManager = function(){
         addProjectDialog.showModal();
     }
 
+    const closeAddProjectDialog = function(returnValue){
+        addProjectDialog.close(returnValue);
+    }
+
     const resetAddProjectForm = function(){
         const form = addProjectDialog.querySelector(".form-container");
         form.reset();
     }
 
-    const displayProjectsOnSidebar = function(projects, handler){
+    const displayProjectsOnSidebar = function(projects){
 
         removeProjectsFromSidebar();
         const projectsNav = createElementWithId("nav", "projects-nav");
@@ -54,7 +58,6 @@ export const ViewManager = function(){
             const projectListItem = createElementWithClass("li", "project");
             const projectButton = createElementWithClass("button", "project-button");
             projectButton.dataset.indexNumber = i;
-            projectButton.addEventListener("click", handler);
             projectButton.textContent = projects[i].name;
             projectListItem.appendChild(projectButton);
             projectsList.append(projectListItem);
@@ -94,16 +97,32 @@ export const ViewManager = function(){
 
 
     // MAIN DISPLAY FUNCTIONS
-
-
+    
     const showAddToDoDialog = function(){
         addToDoDialog.showModal();
+    }
+
+    const closeAddToDoDialog = function(returnValue){
+        addToDoDialog.close(returnValue);
     }
 
     const resetAddToDoForm = function(){
         const form = addToDoDialog.querySelector(".form-container");
         form.reset();
     }
+
+    const bindAddToDoButtonOnClick = function(handler){
+
+        const addTaskButton = display.querySelector(".add-todo-button");
+        addTaskButton.addEventListener("click", handler);
+        
+    }
+
+    const bindDeleteButtonOnClick = function(handler){
+
+
+    }
+
 
     function createToDoElements(todo){
         
@@ -183,7 +202,7 @@ export const ViewManager = function(){
         display.textContent = "";
     }
 
-    const displayToDos = function(project, index, handler){
+    const displayToDos = function(project, index){
 
         const projectHeader = document.createElement("h2");
         const addToDoButton = document.createElement("button");
@@ -194,7 +213,7 @@ export const ViewManager = function(){
         projectHeader.textContent = `${project.name}`;
         headerContainer.appendChild(projectHeader);
         addToDoButton.textContent = 'Add To Do';
-        addToDoButton.addEventListener("click", showAddToDoDialog);
+        addToDoButton.classList.add("add-todo-button");
         headerContainer.appendChild(addToDoButton);
         display.appendChild(headerContainer);
 
@@ -213,7 +232,6 @@ export const ViewManager = function(){
         // for every To Do within the project, append a display-item to the display-grid
         for(let i = 0; i < project.toDoList.length; i++){
             const displayItem = createElementWithClass("div", "display-item");
-            displayItem.addEventListener("click", handler);
             displayItem.dataset.id = project.toDoList[i].id;
             
             const elmnts = createToDoElements(project.toDoList[i]);
@@ -233,25 +251,27 @@ export const ViewManager = function(){
     }
 
 
-    const bindDeleteButtonOnClick = function(handler){
-
-
-    }
-
+    
    
 
     return {
-        displayProjectsOnSidebar,
+        
         createElementWithClass,
         createElementWithId,
         getElement,
+        displayProjectsOnSidebar,
         showAddProjectDialog,
         resetAddProjectForm,
         displayToDos,
         resetDisplay,
         resetAddToDoForm,
         bindProjectsOnClick,
+        bindAddToDoButtonOnClick,
         bindDeleteButtonOnClick,
+        showAddToDoDialog,
+        closeAddToDoDialog,
+        closeAddProjectDialog,
+
     }
 
 }

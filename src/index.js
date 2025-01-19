@@ -13,8 +13,6 @@ const view = ViewManager();
 
 const App = function(viewManager, projects){
 
-    const sideBar = viewManager.getElement("#sidebar");
-
     // ADD PROJECT ELEMENTS
     const addProjectDialog = viewManager.getElement("#add-project-dialog");
     const addProjectButton = viewManager.getElement("#add-project-button");
@@ -25,26 +23,29 @@ const App = function(viewManager, projects){
     const saveToDoButton = viewManager.getElement("#save-todo-button");
 
 
-    
-
+    //HANDLERS
 
     const handleProjectOnClick = (event) => {
         const index = event.target.dataset.indexNumber;
         viewManager.resetDisplay();
-        viewManager.displayToDos(projects[index], index, handleToDoOnClick);
+        viewManager.displayToDos(projects[index], index);
+        viewManager.bindAddToDoButtonOnClick(handleAddToDoOnClick);
     };
 
-    const handleToDoOnClick = (event) => {
-        console.log("Handling To Do");
-        
 
-    };
+    const handleAddToDoOnClick = function(){
+        viewManager.showAddToDoDialog();
+    }
+
     
-
-
     // EVENTS FOR ADDING A PROJECT
     addProjectButton.addEventListener("click", () => {
             viewManager.showAddProjectDialog();
+    });
+
+    saveProjectButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        viewManager.closeAddProjectDialog(event.target.value);
     });
 
     addProjectDialog.addEventListener("close", (event) => {
@@ -60,14 +61,9 @@ const App = function(viewManager, projects){
         
     });
 
-    saveProjectButton.addEventListener("click", (event) => {
-        event.preventDefault();
-        addProjectDialog.close(event.target.value);
-    });
-
-
+   
     // EVENTS FOR ADDING A TODO TO A PROJECT
-
+ 
     addToDoDialog.addEventListener("close", (event) => {
 
         // if save buttons was clicked
@@ -86,18 +82,20 @@ const App = function(viewManager, projects){
             );
 
 
-            console.log(typeof handleToDoOnClick);
             // reset view and display updated list
-            viewManager.resetAddToDoForm();
+            
             viewManager.resetDisplay();
-            viewManager.displayToDos(projects[projectIndex], projectIndex, handleToDoOnClick);
+            viewManager.displayToDos(projects[projectIndex], projectIndex);
+            viewManager.bindAddToDoButtonOnClick(handleAddToDoOnClick);
         }
+
+        viewManager.resetAddToDoForm();
 
     });
 
     saveToDoButton.addEventListener("click", (event) => {
         event.preventDefault();
-        addToDoDialog.close(event.target.value);
+        viewManager.closeAddToDoDialog(event.target.value);
     })
 
 
