@@ -104,9 +104,11 @@ const App = function(viewManager, projects){
             viewManager.bindProjectsOnClick(handleProjectOnClick);
         }
 
+        
+        viewManager.resetDisplay();
+        viewManager.displayToDos(projects[projects.length - 1], projects.length - 1);
+        bindDisplayHandlers();
         viewManager.resetAddProjectForm();
-        
-        
     });
 
    

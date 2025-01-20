@@ -7,6 +7,7 @@ export const ViewManager = function(){
     const addProjectDialog = getElement("#add-project-dialog");
     const addToDoDialog = getElement("#add-todo-dialog");
     const display = getElement("#display");
+    const projectDetails = getElement("#sidebar-details");
 
 
     // HELPER FUNCTIONS
@@ -54,6 +55,7 @@ export const ViewManager = function(){
             dialogProjectName.reportValidity();
         } else{
             closeAddProjectDialog(returnValue);
+            sideBarDetails.open = true;
         }
     }
 
