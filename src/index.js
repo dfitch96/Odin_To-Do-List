@@ -95,30 +95,8 @@ const App = function(viewManager, projects){
 
         // if save buttons was clicked
         if(addToDoDialog.returnValue === "save"){
-            const form = addToDoDialog.querySelector(".form-container");
+            
             const projectIndex = document.querySelector("#display-grid").dataset.indexNumber;
-            const id = form.dataset.id;
-
-            const formData = new FormData(form);
-
-            const updatedProperties = {
-                title: formData.get("title"),
-                description: formData.get("description"),
-                dueDate: formData.get("duedate"),
-                priority: formData.get("priority"),
-            }
-
-
-            if(id){
-                projects[projectIndex].editToDo(Number(id), updatedProperties);
-            } else{
-                projects[projectIndex].addToDo(
-                    updatedProperties.title, 
-                    updatedProperties.description, 
-                    updatedProperties.dueDate, 
-                    updatedProperties.priority
-                );
-            }
 
             // reset view and display updated list
             viewManager.resetDisplay();
@@ -132,6 +110,33 @@ const App = function(viewManager, projects){
 
     saveToDoButton.addEventListener("click", (event) => {
         event.preventDefault();
+
+        const form = addToDoDialog.querySelector(".form-container");
+        const projectIndex = document.querySelector("#display-grid").dataset.indexNumber;
+        const id = form.dataset.id;
+
+        const formData = new FormData(form);
+
+        const updatedProperties = {
+            title: formData.get("title"),
+            description: formData.get("description"),
+            dueDate: formData.get("duedate"),
+            priority: formData.get("priority"),
+        }
+
+
+        if(id){
+            projects[projectIndex].editToDo(Number(id), updatedProperties);
+        } else{
+            projects[projectIndex].addToDo(
+                updatedProperties.title, 
+                updatedProperties.description, 
+                updatedProperties.dueDate, 
+                updatedProperties.priority
+            );
+        }
+
+
         viewManager.closeAddToDoDialog(event.target.value);
     })
 
