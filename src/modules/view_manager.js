@@ -163,6 +163,19 @@ export const ViewManager = function(){
 
     }
 
+    const bindStatusCheckboxOnClick = function(handler){
+
+        const displayGrid = getElement("#display-grid");
+
+        if(displayGrid){
+            for(const child of displayGrid.children){
+                const checkbox = child.querySelector(".status-checkbox");
+                checkbox.addEventListener("click", handler);
+            }
+        }
+
+    }
+
 
     function createToDoElements(todo){
         
@@ -171,7 +184,8 @@ export const ViewManager = function(){
         const p2 = document.createElement("p");
         const p3 = document.createElement("p");
 
-        header.textContent = todo.title;
+
+        header.textContent = !todo.isComplete ? `${todo.title}` : `${todo.title} (Completed)`;
         p1.textContent = todo.description;
         p2.textContent = `Due Date: ${todo.dueDate}`;
         p3.textContent = `Priority: ${todo.priority}`;
@@ -186,6 +200,11 @@ export const ViewManager = function(){
     }
 
 
+    function updateDisplayItemHeader(id){
+        
+    }
+
+
     function setButton(button, text, index, id, value, className){
         button.textContent = text;
         button.classList.add(className);
@@ -194,7 +213,7 @@ export const ViewManager = function(){
         button.value = value
     }
 
-    function createButtonGroup(indexNumber, id){
+    function createButtonGroup(indexNumber, id, isComplete){
         const buttonGroup = createElementWithClass("div", "button-group");
         const checkboxDiv = document.createElement("div");
         const label = document.createElement("label");
@@ -213,6 +232,7 @@ export const ViewManager = function(){
         checkbox.classList.add("status-checkbox");
         checkbox.dataset.indexNumber = indexNumber;
         checkbox.dataset.id = id;
+        checkbox.checked = isComplete;
         
         checkboxDiv.appendChild(checkbox);
 
@@ -276,7 +296,7 @@ export const ViewManager = function(){
             displayItem.dataset.id = project.toDoList[i].id;
             
             const elmnts = createToDoElements(project.toDoList[i]);
-            const buttonGroup = createButtonGroup(index, project.toDoList[i].id);
+            const buttonGroup = createButtonGroup(index, project.toDoList[i].id, project.toDoList[i].isComplete);
 
             appendElements(elmnts, displayItem);
             displayItem.appendChild(buttonGroup);
@@ -310,6 +330,7 @@ export const ViewManager = function(){
         bindAddToDoButtonOnClick,
         bindDeleteButtonOnClick,
         bindEditButtonOnClick,
+        bindStatusCheckboxOnClick,
         showAddToDoDialog,
         showEditToDoDialog,
         closeAddToDoDialog,

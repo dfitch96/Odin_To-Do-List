@@ -27,6 +27,7 @@ const App = function(viewManager, projects){
         viewManager.bindAddToDoButtonOnClick(handleAddToDoOnClick);
         viewManager.bindDeleteButtonOnClick(handleDeleteToDoOnClick);
         viewManager.bindEditButtonOnClick(handleEditToDoOnClick);
+        viewManager.bindStatusCheckboxOnClick(handleStatusToggle);
     }
 
 
@@ -62,6 +63,16 @@ const App = function(viewManager, projects){
         bindDisplayHandlers();
 
 
+    }
+
+    const handleStatusToggle = function(event){
+        console.log(`Toggling status for task ${event.target.dataset.id} from project ${event.target.dataset.indexNumber}`);
+        const projectIndex = event.target.dataset.indexNumber;
+        const id = event.target.dataset.id;
+        projects[projectIndex].toggleIsComplete(Number(id));
+        viewManager.resetDisplay();
+        viewManager.displayToDos(projects[event.target.dataset.indexNumber], event.target.dataset.indexNumber);
+        bindDisplayHandlers();
     }
 
     

@@ -31,6 +31,16 @@ export class Project{
         return this.toDoList.find(todo => todo.id === id);
     }
 
+    toggleIsComplete(id){
+        const task = this.toDoList.find(todo => todo.id === id);
+        task.isComplete = !task.isComplete;
+    }
+
+    getIsComplete(id){
+        const task = this.toDoList.find(todo => todo.id === id);
+        return task.isComplete;
+    }
+
     get toString(){
         let projectString = `${this.name}\n\n`;
 
