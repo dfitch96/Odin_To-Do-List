@@ -18,7 +18,7 @@ const App = function(viewManager, projects){
     const addProjectButton = viewManager.getElement("#add-project-button");
     const saveProjectButton = viewManager.getElement("#save-project-button");
     const cancelProjectButton = viewManager.getElement("#cancel-project-button");
-    const dialogProjectName = addProjectDialog.querySelector("#project-name");
+    
     
     // ADD TODO ELEMNTS
     const addToDoDialog = viewManager.getElement("#add-todo-dialog");
@@ -85,12 +85,9 @@ const App = function(viewManager, projects){
 
     saveProjectButton.addEventListener("click", (event) => {
         event.preventDefault();
-        if(dialogProjectName.value.length === 0){
-            dialogProjectName.setCustomValidity("Please insert a project name");
-            dialogProjectName.reportValidity();
-        } else{
-            viewManager.closeAddProjectDialog(event.target.value);
-        }
+
+        viewManager.validateProjectForm(event.target.value);
+        
         
     });
 

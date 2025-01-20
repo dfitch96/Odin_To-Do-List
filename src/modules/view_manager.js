@@ -47,6 +47,16 @@ export const ViewManager = function(){
         form.reset();
     }
 
+    const validateProjectForm = function(returnValue){
+        const dialogProjectName = addProjectDialog.querySelector("#project-name");
+        if(dialogProjectName.value.length === 0){
+            dialogProjectName.setCustomValidity("Please insert a project name");
+            dialogProjectName.reportValidity();
+        } else{
+            closeAddProjectDialog(returnValue);
+        }
+    }
+
     const displayProjectsOnSidebar = function(projects){
 
         removeProjectsFromSidebar();
@@ -323,6 +333,7 @@ export const ViewManager = function(){
         displayProjectsOnSidebar,
         showAddProjectDialog,
         resetAddProjectForm,
+        validateProjectForm,
         displayToDos,
         resetDisplay,
         resetAddToDoForm,
@@ -335,6 +346,7 @@ export const ViewManager = function(){
         showEditToDoDialog,
         closeAddToDoDialog,
         closeAddProjectDialog,
+        
 
     }
 

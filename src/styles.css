@@ -6,13 +6,14 @@
     --secondary-color: rgb(69, 196, 90);
     --sidebar-margin-left: 20px;
     --primary-font-color: rgb(121, 117, 117);
+    --primary-font: 'Shadows Into Light', 'Roboto', serif;
 }
 
 
 
 body,
 html {
-    font-family: 'Roboto', serif;
+    font-family: var(--primary-font);
     font-size: 1.5rem;
     margin: 0;
     min-height: 100vh;
@@ -20,6 +21,15 @@ html {
     color: var(--primary-font-color);
 }
 
+button:hover{
+    background-color: rgb(69, 196, 90);
+}
+
+input,
+select,
+button{
+    font-family: var(--primary-font);
+}
 
 #grid-container{
     display: grid;
@@ -72,7 +82,7 @@ html {
 
 #sidebar button{
     padding: 0;
-    font-family: 'Jersey 15';
+    font-family: var(--primary-font);
     background: none;
     border: none;
     font-size: 1rem;
