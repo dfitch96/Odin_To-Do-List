@@ -169,6 +169,10 @@ dialog h4{
     
 }
 
+.display-item:hover{
+    background-color: var(--primary-color);
+}
+
 #display button{
     cursor: pointer;
 }
