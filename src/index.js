@@ -5,7 +5,7 @@ import {ViewManager} from "./modules/view_manager.js";
 
 const projects = [];
 const project = new Project("Home");
-project.addToDo("Get Groceries", "Go to Tops. I need bananas, cereal, and milk", "1/17/2025", "high");
+project.addToDo("Get Groceries", "Go to Tops. I need bananas, cereal, and milk", "2025-01-23", "high");
 projects.push(project);
 const view = ViewManager();
 
@@ -23,6 +23,11 @@ const App = function(viewManager, projects){
     const saveToDoButton = viewManager.getElement("#save-todo-button");
 
 
+    const bindDisplayHandlers = function(){
+        viewManager.bindAddToDoButtonOnClick(handleAddToDoOnClick);
+        viewManager.bindDeleteButtonOnClick(handleDeleteToDoOnClick);
+        viewManager.bindEditButtonOnClick(handleEditToDoOnClick);
+    }
 
 
 
@@ -32,13 +37,20 @@ const App = function(viewManager, projects){
         const index = event.target.dataset.indexNumber;
         viewManager.resetDisplay();
         viewManager.displayToDos(projects[index], index);
-        viewManager.bindAddToDoButtonOnClick(handleAddToDoOnClick);
-        viewManager.bindDeleteButtonOnClick(handleDeleteToDoOnClick);
+        bindDisplayHandlers();
     };
 
 
     const handleAddToDoOnClick = function(){
         viewManager.showAddToDoDialog();
+    }
+
+    const handleEditToDoOnClick = function(event){
+        console.log(`Editing task ${event.target.dataset.id} from project ${event.target.dataset.indexNumber}`);
+
+        const id = Number(event.target.dataset.id);
+        const project = projects[event.target.dataset.indexNumber];
+        viewManager.showEditToDoDialog(id, project.getToDo(id));
     }
 
     const handleDeleteToDoOnClick = function(event){
@@ -47,11 +59,8 @@ const App = function(viewManager, projects){
         projects[event.target.dataset.indexNumber].deleteToDo(Number(event.target.dataset.id));
         viewManager.resetDisplay();
         viewManager.displayToDos(projects[event.target.dataset.indexNumber], event.target.dataset.indexNumber);
-        viewManager.bindAddToDoButtonOnClick(handleAddToDoOnClick);
-        viewManager.bindDeleteButtonOnClick(handleDeleteToDoOnClick);
-       
-        
-        
+        bindDisplayHandlers();
+
 
     }
 
@@ -88,26 +97,35 @@ const App = function(viewManager, projects){
         if(addToDoDialog.returnValue === "save"){
             const form = addToDoDialog.querySelector(".form-container");
             const projectIndex = document.querySelector("#display-grid").dataset.indexNumber;
+            const id = form.dataset.id;
 
             const formData = new FormData(form);
 
-            // add to do to the project
-            projects[projectIndex].addToDo(
-                formData.get("title"),
-                formData.get("description"),
-                formData.get("duedate"),
-                formData.get("priority"),
-            );
+            const updatedProperties = {
+                title: formData.get("title"),
+                description: formData.get("description"),
+                dueDate: formData.get("duedate"),
+                priority: formData.get("priority"),
+            }
 
+
+            if(id){
+                projects[projectIndex].editToDo(Number(id), updatedProperties);
+            } else{
+                projects[projectIndex].addToDo(
+                    updatedProperties.title, 
+                    updatedProperties.description, 
+                    updatedProperties.dueDate, 
+                    updatedProperties.priority
+                );
+            }
 
             // reset view and display updated list
-            
             viewManager.resetDisplay();
             viewManager.displayToDos(projects[projectIndex], projectIndex);
-            viewManager.bindAddToDoButtonOnClick(handleAddToDoOnClick);
-            viewManager.bindDeleteButtonOnClick(handleDeleteToDoOnClick);
+            bindDisplayHandlers();
         }
-
+        
         viewManager.resetAddToDoForm();
 
     });

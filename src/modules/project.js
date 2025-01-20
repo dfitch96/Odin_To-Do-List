@@ -16,8 +16,18 @@ export class Project{
         this.toDoList = this.toDoList.filter((todo) => todo.id !== id);
     }
 
+    editToDo(id, updatedProperties){
 
-    getToDoo(id){
+        const todo = this.getToDo(id);
+
+        todo.title = updatedProperties.title;
+        todo.description = updatedProperties.description;
+        todo.dueDate = updatedProperties.dueDate;
+        todo.priority = updatedProperties.priority;
+
+    }
+
+    getToDo(id){
         return this.toDoList.find(todo => todo.id === id);
     }
 

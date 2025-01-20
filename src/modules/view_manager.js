@@ -99,15 +99,35 @@ export const ViewManager = function(){
     // MAIN DISPLAY FUNCTIONS
 
     const showAddToDoDialog = function(){
+        const header = addToDoDialog.querySelector("h4");
+        header.textContent = "Add To Do";
+        addToDoDialog.showModal();
+    }
+
+    const showEditToDoDialog = function(id, todo){
+
+        const form = addToDoDialog.querySelector(".form-container");
+        const header = addToDoDialog.querySelector("h4");
+        
+        header.textContent = "Edit To Do";
+        form.querySelector("#title").value = todo.title;
+        form.querySelector("#description").value = todo.description;
+        form.querySelector("#duedate").value = todo.dueDate;
+        form.querySelector("#priority").value = todo.priority;
+        form.dataset.id = id;
+
         addToDoDialog.showModal();
     }
 
     const closeAddToDoDialog = function(returnValue){
+        const form = addToDoDialog.querySelector(".form-container");
+       
         addToDoDialog.close(returnValue);
     }
 
     const resetAddToDoForm = function(){
         const form = addToDoDialog.querySelector(".form-container");
+        form.setAttribute("data-id", '');
         form.reset();
     }
 
@@ -116,6 +136,18 @@ export const ViewManager = function(){
         const addTaskButton = display.querySelector(".add-todo-button");
         addTaskButton.addEventListener("click", handler);
         
+    }
+
+
+    const bindEditButtonOnClick = function(handler){
+        const displayGrid = getElement("#display-grid");
+
+        if(displayGrid){
+            for(const child of displayGrid.children){
+                const button = child.querySelector(".edit-button");
+                button.addEventListener("click", handler);
+            }
+        }
     }
 
     const bindDeleteButtonOnClick = function(handler){
@@ -277,7 +309,9 @@ export const ViewManager = function(){
         bindProjectsOnClick,
         bindAddToDoButtonOnClick,
         bindDeleteButtonOnClick,
+        bindEditButtonOnClick,
         showAddToDoDialog,
+        showEditToDoDialog,
         closeAddToDoDialog,
         closeAddProjectDialog,
 
