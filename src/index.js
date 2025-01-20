@@ -2,12 +2,49 @@ import "./styles.css";
 import {Project} from "./modules/project.js";
 import {ViewManager} from "./modules/view_manager.js";
 
-
+const STORAGE_KEY = "myProjects";
 const projects = [];
-const project = new Project("Home");
-project.addToDo("Get Groceries", "Go to Tops. I need bananas, cereal, and milk", "2025-01-23", "high");
-projects.push(project);
+//const project = new Project("Home");
+// project.addToDo("Laundry", "Throw bed sheets and pillowcases into wash", "2025-01-28", "medium");
+// project.addToDo("Landscape Around House", "Mow lawn and trim hedges", "2025-01-25", "high");
+// projects.push(project);
+
+// const webApp = new Project("Web App");
+// webApp.addToDo("Data Model and View", "Design gameboard and player data models for a tic-tac-toe game. Design a view which can be used by the game controller so it can display the game state.", "2025-20-01", "high");
+// projects.push(webApp);
 const view = ViewManager();
+
+
+
+
+document.addEventListener("DOMContentLoaded", (event) => {
+    if(storageAvailable()){
+        console.log("Local Storage Available!");
+        let storage = window["localStorage"];
+
+        if(!storage.getItem(STORAGE_KEY)){
+            console.log("myProjects not found");
+        } else{
+            console.log("myProjects found");
+            const projectsObj = JSON.parse(storage.getItem(STORAGE_KEY));
+            console.log(projectsObj.length);
+            for(let i = 0; i < projectsObj.length; i++){
+                const newProject = new Project(projectsObj[i].name);
+                const toDoListObj = projectsObj[i].toDoList;
+                for(let j = 0; j < toDoListObj.length; j++){
+                    console.log("task" + j + " for project" + i);
+                    newProject.addToDo(toDoListObj.title, toDoListObj.description, toDoListObj.dueDate, toDoListObj.priority);
+                }
+                projects.push(newProject);
+            }
+        }
+
+    } else{
+        console.log("Local Storage Unavailable :(");
+    }
+})
+
+
 
 
 
@@ -163,10 +200,30 @@ const App = function(viewManager, projects){
         viewManager.closeAddToDoDialog(event.target.value);
     })
 
-
+    
 
     viewManager.displayProjectsOnSidebar(projects);
     viewManager.bindProjectsOnClick(handleProjectOnClick);
 
 
 }(view, projects);
+
+
+
+function storageAvailable(){
+    let storage;
+    try{
+        storage = window["localStorage"];
+        const x = "__storage_test__";
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    } catch(e) {
+        return (
+            e instanceof DOMException &&
+            e.name === "QuotaExceededError" &&
+            storage &&
+            storage.length !== 0
+        );
+    }
+}
