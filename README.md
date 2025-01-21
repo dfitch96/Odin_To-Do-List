@@ -14,7 +14,7 @@ A simple, project-based task management app to organize and prioritize your todo
 
 1. Clone the repository:  
    ```bash
-   git clone https://github.com/your-repo.git
+   git@github.com:dfitch96/Odin_To-Do-List.git
 2. Install Dependencies
    ```bash
    npm install
