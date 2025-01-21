@@ -1,4 +1,4 @@
-# Todo List Application
+# Todo List
 
 A simple, project-based task management app to organize and prioritize your todos. Features include:
 
