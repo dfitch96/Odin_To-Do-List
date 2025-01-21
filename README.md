@@ -1,8 +1,5 @@
 # Todo List Application
 
-## This Project Was Inspired by The Odin Project
-https://www.theodinproject.com/lessons/node-path-javascript-todo-list
-
 A simple, project-based task management app to organize and prioritize your todos. Features include:
 
 - Create and manage tasks with titles, descriptions, due dates, and priorities.  
@@ -11,7 +8,7 @@ A simple, project-based task management app to organize and prioritize your todo
 
 ## Live Preview
 
-[View the app live](https://dfitch96.github.io/Odin_To-Do-List/).
+[View the app live](https://dfitch96.github.io/Odin_To-Do-List/)
 
 ## Installation
 
@@ -25,5 +22,8 @@ A simple, project-based task management app to organize and prioritize your todo
    ```bash
    npm run start
 
+
+## This Project Was Inspired by The Odin Project
+https://www.theodinproject.com/lessons/node-path-javascript-todo-list
 
 
