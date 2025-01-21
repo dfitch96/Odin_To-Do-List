@@ -1,49 +1,63 @@
 import "./styles.css";
-import {Project} from "./modules/project.js";
+import {PROJECT_KEYS, Project} from "./modules/project.js";
 import {ViewManager} from "./modules/view_manager.js";
 
-//const STORAGE_KEY = "myProjects";
+
 const projects = [];
+const view = ViewManager();
+
+
+
 const project = new Project("Home");
 project.addToDo("Laundry", "Throw bed sheets and pillowcases into wash", "2025-01-28", "medium");
 project.addToDo("Landscape Around House", "Mow lawn and trim hedges", "2025-01-25", "high");
-projects.push(project);
+//projects.push(project);
 
 const webApp = new Project("Web App");
 webApp.addToDo("Start Data Model and View for Tic-Tac-Toe Game", "Develop gameboard and player data models for a tic-tac-toe game. Design a view which can be used by the game controller so it can display the game state.", "2025-20-01", "high");
 webApp.toggleIsComplete(1);
-projects.push(webApp);
-const view = ViewManager();
+//projects.push(webApp);
 
 
-//let storage = window["localStorage"];
 
-// document.addEventListener("DOMContentLoaded", (event) => {
-//     if(storageAvailable()){
-//         console.log("Local Storage Available!");
-//         let storage = window["localStorage"];
 
-//         if(!storage.getItem(STORAGE_KEY)){
-//             console.log("myProjects not found");
-//         } else{
-//             console.log("myProjects found");
-//             const projectsObj = JSON.parse(storage.getItem(STORAGE_KEY));
-//             console.log(projectsObj.length);
-//             for(let i = 0; i < projectsObj.length; i++){
-//                 const newProject = new Project(projectsObj[i].name);
-//                 const toDoListObj = projectsObj[i].toDoList;
-//                 for(let j = 0; j < toDoListObj.length; j++){
-//                     console.log("task" + j + " for project" + i);
-//                     newProject.addToDo(toDoListObj.title, toDoListObj.description, toDoListObj.dueDate, toDoListObj.priority);
-//                 }
-//                 projects.push(newProject);
-//             }
-//         }
 
-//     } else{
-//         console.log("Local Storage Unavailable :(");
-//     }
-// })
+
+document.addEventListener("DOMContentLoaded", (event) => {
+    if(Project.storageAvailable()){
+        console.log("Local Storage Available!");
+        let storage = window["localStorage"];
+
+        if(storage.getItem(PROJECT_KEYS)){
+            const keys = JSON.parse(storage.getItem(PROJECT_KEYS));
+
+            for(const key of keys){
+                console.log("pushing " + key);
+                if(storage.getItem(key)){
+                    const projectObj = JSON.parse(storage.getItem(key));
+                    console.log("creating project " + projectObj.name);
+                    const newProject = new Project(projectObj.name);
+
+                    for(const task of projectObj.toDoList){
+                        console.log(`Adding task: ${task.title}`);
+                        newProject.addToDo(task.title, task.description, task.dueDate, task.priority);
+                        if(task.isComplete){
+                            newProject.toggleIsComplete(task.id);
+                        }
+                    }
+                    
+                    projects.push(newProject);
+                }
+            }
+
+        }
+
+    } else{
+        console.log("Local Storage Unavailable :(");
+    }
+
+    App(view, projects);
+})
 
 
 
@@ -56,6 +70,7 @@ const App = function(viewManager, projects){
     const addProjectButton = viewManager.getElement("#add-project-button");
     const saveProjectButton = viewManager.getElement("#save-project-button");
     const cancelProjectButton = viewManager.getElement("#cancel-project-button");
+    
     
     
     // ADD TODO ELEMNTS
@@ -71,6 +86,7 @@ const App = function(viewManager, projects){
     }
 
 
+ 
 
     //HANDLERS
 
@@ -138,6 +154,7 @@ const App = function(viewManager, projects){
         if(addProjectDialog.returnValue === "save"){
             const projectName = viewManager.getElement("#project-name").value;
             projects.push(new Project(projectName))
+           
             viewManager.displayProjectsOnSidebar(projects);
             viewManager.bindProjectsOnClick(handleProjectOnClick);
         }
@@ -207,7 +224,7 @@ const App = function(viewManager, projects){
     viewManager.bindProjectsOnClick(handleProjectOnClick);
 
 
-}(view, projects);
+};
 
 
 

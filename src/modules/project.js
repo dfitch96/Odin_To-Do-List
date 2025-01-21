@@ -1,5 +1,12 @@
 import {ToDo} from "./todo.js";
 
+export const PROJECT_KEYS = "projectKeys";
+
+if(!window["localStorage"].getItem(PROJECT_KEYS)){
+    window["localStorage"].setItem(PROJECT_KEYS, JSON.stringify([]));
+}
+
+
 export class Project{
 
     #storage;
@@ -9,18 +16,36 @@ export class Project{
         this.name = name;
         this.#storage = window["localStorage"];
         this.#addProjectToLocalStorage();
+        this.#addKeyToStorage(name);
     }
+
+    #addKeyToStorage(key){
+
+        const keyStorageObj = JSON.parse(this.#storage.getItem(PROJECT_KEYS));
+        if (!keyStorageObj.includes(key)){
+            keyStorageObj.push(key);
+        
+            this.#storage.setItem(PROJECT_KEYS, JSON.stringify(keyStorageObj));
+        }
+        
+    
+        
+    }   
 
     #addProjectToLocalStorage(){
 
-        if(!this.#storage.getItem(this.name)){
+        if(!this.#storage.getItem(this.name) && Project.storageAvailable()){
             this.#storage.setItem(this.name, JSON.stringify(this));
         }
-
     }
 
+    
+
     #updateStorage(){
-        this.#storage.setItem(this.name, JSON.stringify(this));
+        if(Project.storageAvailable()){
+            this.#storage.setItem(this.name, JSON.stringify(this));
+        }
+        
     }
 
     addToDo(title, description, dueDate, priority){
