@@ -59,6 +59,10 @@ export const ViewManager = function(){
         }
     }
 
+    const openSideBarDetails = function(){
+        sideBarDetails.open = true;
+    }
+
     const displayProjectsOnSidebar = function(projects){
 
         removeProjectsFromSidebar();
@@ -348,7 +352,7 @@ export const ViewManager = function(){
         showEditToDoDialog,
         closeAddToDoDialog,
         closeAddProjectDialog,
-        
+        openSideBarDetails,
 
     }
 

@@ -8,38 +8,28 @@ const view = ViewManager();
 
 
 
-const project = new Project("Home");
-project.addToDo("Laundry", "Throw bed sheets and pillowcases into wash", "2025-01-28", "medium");
-project.addToDo("Landscape Around House", "Mow lawn and trim hedges", "2025-01-25", "high");
-//projects.push(project);
-
-const webApp = new Project("Web App");
-webApp.addToDo("Start Data Model and View for Tic-Tac-Toe Game", "Develop gameboard and player data models for a tic-tac-toe game. Design a view which can be used by the game controller so it can display the game state.", "2025-20-01", "high");
-webApp.toggleIsComplete(1);
-//projects.push(webApp);
-
-
-
-
-
 
 document.addEventListener("DOMContentLoaded", (event) => {
     if(Project.storageAvailable()){
         console.log("Local Storage Available!");
         let storage = window["localStorage"];
 
+        if(!storage.getItem("Home")){
+            const project = new Project("Home");
+            project.addToDo("Add a to do", `Click the "Add To Do" button in the top right corner to add a new task to the "Home" project`, "2025-02-28", "high");
+            project.addToDo("Add a project", `Click the "Create Project" button in the sidebar to create a new project`, "2025-02-28", "high");
+        }
+
         if(storage.getItem(PROJECT_KEYS)){
             const keys = JSON.parse(storage.getItem(PROJECT_KEYS));
 
             for(const key of keys){
-                console.log("pushing " + key);
+               
                 if(storage.getItem(key)){
                     const projectObj = JSON.parse(storage.getItem(key));
-                    console.log("creating project " + projectObj.name);
                     const newProject = new Project(projectObj.name);
-
                     for(const task of projectObj.toDoList){
-                        console.log(`Adding task: ${task.title}`);
+                        
                         newProject.addToDo(task.title, task.description, task.dueDate, task.priority);
                         if(task.isComplete){
                             newProject.toggleIsComplete(task.id);
@@ -222,6 +212,9 @@ const App = function(viewManager, projects){
 
     viewManager.displayProjectsOnSidebar(projects);
     viewManager.bindProjectsOnClick(handleProjectOnClick);
+    viewManager.displayToDos(projects[0], projects.length - 1);
+    bindDisplayHandlers();
+    viewManager.openSideBarDetails();
 
 
 };
