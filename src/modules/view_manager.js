@@ -199,8 +199,8 @@ export const ViewManager = function(){
 
         header.textContent = !todo.isComplete ? `${todo.title}` : `${todo.title} (Completed)`;
         p1.textContent = todo.description;
-        p2.textContent = `Due Date: ${todo.dueDate}`;
-        p3.textContent = `Priority: ${todo.priority}`;
+        p2.innerHTML = `<strong>Due Date:</strong> ${todo.dueDate}`;
+        p3.innerHTML = `<strong>Priority:</strong> ${todo.priority}`;
 
 
         return {
@@ -236,7 +236,7 @@ export const ViewManager = function(){
 
         // SET/APPEND LABEL AND CHECKBOX
         label.setAttribute("for", "status");
-        label.textContent = "Status: ";
+        label.innerHTML = `<strong>Status: </strong`;
 
         checkboxDiv.appendChild(label);
 
