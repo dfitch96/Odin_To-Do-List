@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         if(!storage.getItem("Home")){
             const project = new Project("Home");
             project.addToDo("Add a to do", `Click the "Add To Do" button in the top right corner to add a new task to the "Home" project`, "2025-02-28", "high");
-            project.addToDo("Add a project", `Click the "Create Project" button in the sidebar to create a new project`, "2025-02-28", "high");
+            project.addToDo("Add a project", `Click the "Add Project" button in the sidebar to create a new project`, "2025-02-28", "high");
         }
 
         if(storage.getItem(PROJECT_KEYS)){
