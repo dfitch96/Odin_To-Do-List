@@ -20,7 +20,10 @@ A simple, project-based task management app to organize and prioritize your todo
    npm install
 3. Start the App
    ```bash
-   npm run start
+   npx webpack serve
+4. Open Your Browser
+   ```bash
+   localhost:8080
 
 
 ## This Project Was Inspired by The Odin Project
