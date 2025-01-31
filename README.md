@@ -22,7 +22,9 @@ A simple, project-based task management app to organize and prioritize your todo
    ```bash
    npx webpack serve
 
-## This Project Was Inspired by [The Odin Project](https://www.theodinproject.com/lessons/node-path-javascript-todo-list)
+
+
+This Project Was Inspired by [The Odin Project](https://www.theodinproject.com/lessons/node-path-javascript-todo-list)
 
 
 
